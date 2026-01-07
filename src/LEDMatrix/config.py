@@ -1,0 +1,5 @@
+WIDTH = 128
+HEIGHT = 64
+ADDR_LINES = 5
+PINOUT = "adafruit_bonnet"
+BIT_DEPTH = 6
