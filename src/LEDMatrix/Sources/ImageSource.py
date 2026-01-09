@@ -1,6 +1,7 @@
 from PIL import Image
 import numpy as np
 from typing import Tuple
+from bitmapsource import BitmapSource
 
 
 class ImageSource(BitmapSource):
