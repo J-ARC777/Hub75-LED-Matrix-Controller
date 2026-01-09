@@ -20,7 +20,7 @@ class ImageSource(BitmapSource):
             data = Image.open(data)
         elif not isinstance(data, Image.Image):
             raise TypeError("ImageSource.write() only accepts PIL.Image.Image or file path string")
-        else: 
+        else:
             img = data
         return img
     
@@ -31,7 +31,7 @@ class ImageSource(BitmapSource):
             img = img.resize((self.width, self.height), Image.LANCZOS)
         elif mode == "cover":
             img = self._cover_img(img)
-        else: 
+        else:
             raise ValueError("Unknown Image scaling mode. Options are 'fit', 'cover'")
         
         super.write(np.array(data))
@@ -42,7 +42,7 @@ class ImageSource(BitmapSource):
         if self._img is not None: 
             self.write(self._img, mode=mode)
 
-    def _cover_image(self, img: Image.Image) -> Image.Image;
+    def _cover_image(self, img: Image.Image) -> Image.Image:
         img_ratio = img.width / img.height
         buf_ratio = self.width / self.height
 

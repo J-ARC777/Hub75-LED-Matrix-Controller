@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 from Sources.imagesource import ImageSource
-from LEDMatrix.compositor import Compositor
+from compositor import Compositor
 
 
 
