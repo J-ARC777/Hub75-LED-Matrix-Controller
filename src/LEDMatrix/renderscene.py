@@ -1,11 +1,11 @@
 from PIL import Image
 import numpy as np
-from LEDMatrix.Sources.ImageSource import ImageSource
-from LEDMatrix.compositor import Compositor
+from Sources.ImageSource import ImageSource
+from compositor import Compositor
 
 
 
-img_path = "../asses/Mario.jpg"
+img_path = "../assets/Mario.jpg"
 img_buffer = ImageSource(128,64)
 
 comp = Compositor()
