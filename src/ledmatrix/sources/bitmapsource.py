@@ -21,6 +21,7 @@ class BitmapSource():
         
         self._validate_buffer(data)
         rgb, alpha = self._normalize_to_rgb_a(data)
+        print("incoming:", rgb.shape, rgb.dtype, "buffer:", self.buffer.shape, self.buffer.dtype)
         if alpha is not None:
             self._validate_alpha(alpha, rgb)
 
@@ -74,7 +75,7 @@ class BitmapSource():
     def _clamp_rgb(self, rgb_buffer: np.ndarray) -> np.ndarray:
         if rgb_buffer.dtype != np.uint8:
             rgb = np.clip((rgb_buffer), 0, 255).astype(np.uint8)
-            return rgb
+        return rgb.astype(np.uint8, copy=False)
         
     def _clamp_alpha(self, alpha_buffer: np.ndarray) -> np.ndarray:
         if np.issubdtype(alpha_buffer.dtype, np.floating):

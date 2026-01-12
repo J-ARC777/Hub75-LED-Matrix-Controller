@@ -40,7 +40,7 @@ class ImageSource(BitmapSource):
         super().upload(rgba)
     
     def resize(self, new_size: Tuple[int, int], mode: str = "fit"):
-        self.width, self.height = new_size
+        self.height, self.width = new_size
         self.buffer = np.zeros((self.height, self.width, 3), dtype=np.uint8)
         if self._img is not None: 
             self.upload(self._img, mode=mode)
