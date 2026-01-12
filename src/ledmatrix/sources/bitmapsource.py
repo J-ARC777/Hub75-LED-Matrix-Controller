@@ -1,6 +1,6 @@
 import numpy as np
 from typing import Tuple, Optional
-from frame import Frame
+from ledmatrix.types.frame import Frame
 
 class BitmapSource():
     def __init__(self, width: int, height: int, offset: Tuple[int, int] = (0,0), opacity: float = 1.0, alpha: Optional[np.ndarray] = None):

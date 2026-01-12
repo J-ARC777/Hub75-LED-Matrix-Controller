@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 from typing import Tuple, Union, Optional
-from bitmapsource import BitmapSource
+from ledmatrix.sources.bitmapsource import BitmapSource
 
 
 class ImageSource(BitmapSource):

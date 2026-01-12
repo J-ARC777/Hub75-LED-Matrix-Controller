@@ -1,6 +1,6 @@
-from displaycontroller import DisplayController
-from config import WIDTH, HEIGHT
-from  Sources.bitmapsource import BitmapSource
+from ledmatrix.displaycontroller import DisplayController
+from ledmatrix.config import WIDTH, HEIGHT
+from  ledmatrix.sources.bitmapsource import BitmapSource
 import numpy as np
 from typing import List, Tuple
 

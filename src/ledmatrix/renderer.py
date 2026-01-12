@@ -1,8 +1,8 @@
 import time
 from typing import Optional, Callable
 
-from compositor import Compositor
-from displaycontroller import DisplayController
+from ledmatrix.compositor import Compositor
+from ledmatrix.displaycontroller import DisplayController
 
 class Renderer: 
     def __init__(self, display_output: DisplayController, target_fps: int = 60, fixed_hz: int = 30):

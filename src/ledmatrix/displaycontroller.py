@@ -1,4 +1,4 @@
-from matrix import LEDMatrix
+from ledmatrix.matrix import LEDMatrix
 import numpy as np
 
 class DisplayController:

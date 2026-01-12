@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: ledmatrix
+Version: 0.1.0
+Summary: LED matrix render stack (Piomatter)
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: pillow
+Requires-Dist: adafruit_blinka_raspberry_pi5_piomatter
+
+# Description
+Render Stack for Hub75 LED matrices on Adafruit LED Matrix Bonnet running on Raspberry Pi 5

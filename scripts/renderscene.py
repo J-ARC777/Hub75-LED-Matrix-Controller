@@ -1,8 +1,8 @@
 from PIL import Image
 import numpy as np
-from Sources.imagesource import ImageSource
-from renderer import Renderer
-from displaycontroller import DisplayController
+from ledmatrix.sources.imagesource import ImageSource
+from ledmatrix.renderer import Renderer
+from ledmatrix.displaycontroller import DisplayController
 
 
 
