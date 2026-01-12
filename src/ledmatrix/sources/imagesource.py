@@ -25,7 +25,7 @@ class ImageSource(BitmapSource):
         self._img = img
 
         if mode == "fit":
-            img = img.resize((self.height, self.width), Image.LANCZOS)
+            img = img.resize((self.width, self.height), Image.LANCZOS)
         elif mode == "cover":
             img = self._cover_img(img)
         else:
