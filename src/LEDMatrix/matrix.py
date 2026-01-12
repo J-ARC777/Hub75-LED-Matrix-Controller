@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 
 import adafruit_blinka_raspberry_pi5_piomatter as piomatter
-from .config import WIDTH, HEIGHT, ADDR_LINES, PINOUT, COLORSPACE
+from .config import WIDTH, HEIGHT, ADDR_LINES, PINOUT, COLORSPACE, PWM_MAX, PWM_MIN
 
 class LEDMatrix:
     def __init__(self):
@@ -18,16 +18,26 @@ class LEDMatrix:
         
         self._matrix = piomatter.PioMatter( colorspace = COLORSPACE,
                                             pinout = PINOUT,
-                                            framebuffer = self.framebuffer,
+                                            framebuffer = self._framebuffer,
                                             geometry = self.geometry )
 
+    @property
+    def framebuffer(self):
+        return self._framebuffer
+    
     def display(self):
         self._matrix.show()
-            
-    def display_framebuffer(self, framebuffer: np.ndarray):
-        self._framebuffer[:] = framebuffer
-        self.display()
 
     def clear(self):
         self._framebuffer.fill(0)
         self.display()
+
+    def set_brightness(self, value: float):
+        value = max(0.0, min(1.0, value))
+        self._matrix.brightness = value
+
+    def set_pwm_bits(self, bits: int):
+        # Typical range: 6-11. Higher = smoother gradients, larger flicker
+        bits = max(PWM_MIN, min(PWM_MAX, bits))
+        self._matrix.pwm_bits = bits
+        self._matrix.reconfigure()

@@ -10,3 +10,5 @@ CHAIN = 2
 PINOUT = piomatter.Pinout.AdafruitMatrixBonnet
 COLORSPACE =  piomatterColorspace.RGB888Packed
 BIT_DEPTH = 6
+PWM_MIN = 6
+PWM_MAX = 11
