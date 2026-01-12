@@ -31,8 +31,13 @@ class ImageSource(BitmapSource):
         else:
             raise ValueError("Unknown Image scaling mode. Options are 'fit', 'cover'")
         rgba = np.asarray(img.convert("RGBA"))
+        
+        print(type(img), img.size, img.mode)
+        print(type(rgba), getattr(rgba, "shape", None), getattr(rgba, "dtype", None))
+        if rgba is None:
+            raise TypeError("Image Conversion failed. Please check image path or image data")
 
-        super.upload(np.array(rgba))
+        super().upload(rgba)
     
     def resize(self, new_size: Tuple[int, int], mode: str = "fit"):
         self.width, self.height = new_size

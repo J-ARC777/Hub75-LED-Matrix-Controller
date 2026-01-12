@@ -8,7 +8,7 @@ class Compositor:
     def __init__(self):
         self.width = WIDTH
         self.height = HEIGHT
-        self.framebuffer = np.zeros((self.height, self.width, 3), dtype=np.uint8)
+        self._framebuffer = np.zeros((self.height, self.width, 3), dtype=np.uint8)
     
         self.layers: List[BitmapSource] = []
         self._pending_operations: List[Tuple[str, BitmapSource]] = []
@@ -19,7 +19,7 @@ class Compositor:
     
     @property
     def framebuffer(self) -> np.ndarray:
-        return self.framebuffer
+        return self._framebuffer
 
     def _assert_framebuffer_valid(self):
         fb = self.framebuffer

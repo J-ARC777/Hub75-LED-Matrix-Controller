@@ -13,7 +13,7 @@ class BitmapSource():
         self.alpha = alpha
         self.opacity = float(np.clip(opacity, 0.0, 1.0))
         self.dirty = False
-        self._version
+        self._version = 1
           
     def upload(self, data: np.ndarray):
         if self.buffer is None:
@@ -21,7 +21,8 @@ class BitmapSource():
         
         self._validate_buffer(data)
         rgb, alpha = self._normalize_to_rgb_a(data)
-        self._validate_alpha(alpha, rgb)
+        if alpha is not None:
+            self._validate_alpha(alpha, rgb)
 
         self.alpha = alpha
         self.buffer[:] = rgb
@@ -76,7 +77,7 @@ class BitmapSource():
             return rgb
         
     def _clamp_alpha(self, alpha_buffer: np.ndarray) -> np.ndarray:
-        if np.issubdtype(a.dtype, np.floating):
+        if np.issubdtype(alpha_buffer.dtype, np.floating):
             alpha = np.clip(alpha_buffer.astype(np.float32, 0.0, 1.0))
         else:
             maxv = float(np.iinfo(alpha_buffer.dtype).max)

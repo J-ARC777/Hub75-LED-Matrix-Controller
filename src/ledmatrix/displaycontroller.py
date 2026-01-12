@@ -4,7 +4,7 @@ import numpy as np
 class DisplayController:
     _active_instance = None
     def __init__(self, brightness: float = 1.0, pwm_bits: int = 8):
-        if Display._active_instance is not None:
+        if DisplayController._active_instance is not None:
             raise RuntimeError("Only one DisplayController may exist at a time")
         
         self._matrix = LEDMatrix()
