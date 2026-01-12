@@ -1,46 +1,44 @@
 from PIL import Image
 import numpy as np
-from typing import Tuple
+from typing import Tuple, Union, Optional
 from bitmapsource import BitmapSource
 
 
 class ImageSource(BitmapSource):
-    def __init__(self, width, height, offset: Tuple[int, int] = (0,0)):
-
+    def __init__(self, width, height, offset: Tuple[int, int] = (0,0), opacity: float = 1.0, alpha: Optional[np.ndarray] = None ):
         if width is None or height is None:
-            raise ValueError("Image Buffer Dimensions must be provided if no intial image data is provided")
-        
-        super().__init__(width, height, offset)
-        self._img = None
-        if initial_data is not None: 
-            self.write(initial_data)
+            raise ValueError("Image Buffer Dimensions must be provided if no intial image data is provided")     
+        super().__init__(width, height, offset, opacity, alpha)
+        self._img: Optional[Image.Image] = None
 
-    def _load_image(self, data) -> Image.Image:
+    def _load_image(self, data: Union[str,Image.Image]) -> Image.Image:
         if isinstance(data, str):
-            data = Image.open(data)
-        elif not isinstance(data, Image.Image):
-            raise TypeError("ImageSource.write() only accepts PIL.Image.Image or file path string")
-        else:
-            img = data
-        return img
-    
-    def write(self, data, mode:str = "fit"):
+            img = Image.open(data)
+            img.load()
+            return img
+        if isinstance(data, Image.Image):
+            return data
+        raise TypeError("ImageSource.write() only accepts PIL.Image.Image or file path string")
+
+    def upload(self, data: Union[str, Image.Image], mode:str = "fit"):
         img = self._load_image(data)
         self._img = img
+
         if mode == "fit":
-            img = img.resize((self.width, self.height), Image.LANCZOS)
+            img = img.resize((self.height, self.width), Image.LANCZOS)
         elif mode == "cover":
             img = self._cover_img(img)
         else:
             raise ValueError("Unknown Image scaling mode. Options are 'fit', 'cover'")
-        
-        super.write(np.array(data))
+        rgba = np.asarray(img.convert("RGBA"))
 
+        super.upload(np.array(rgba))
+    
     def resize(self, new_size: Tuple[int, int], mode: str = "fit"):
         self.width, self.height = new_size
         self.buffer = np.zeros((self.height, self.width, 3), dtype=np.uint8)
         if self._img is not None: 
-            self.write(self._img, mode=mode)
+            self.upload(self._img, mode=mode)
 
     def _cover_image(self, img: Image.Image) -> Image.Image:
         img_ratio = img.width / img.height
