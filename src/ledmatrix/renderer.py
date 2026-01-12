@@ -30,7 +30,7 @@ class Renderer:
 
     def _render(self):
         previous_frame = time.perf_counter()
-        accumulator
+        accumulator = 0.0
         while self._active:
             current_time = time.perf_counter()
             dt = current_time - previous_frame
