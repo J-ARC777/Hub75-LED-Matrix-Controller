@@ -7,7 +7,7 @@ from ledmatrix.displaycontroller import DisplayController
 
 
 img_path = "../assets/Mario.jpg"
-img_src = ImageSource(128,64)
+img_src = ImageSource(128,64, (0,-1), 1)
 display = DisplayController()
 renderer = Renderer(display)
 img_src.upload(img_path)
