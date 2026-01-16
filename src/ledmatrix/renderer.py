@@ -21,7 +21,7 @@ class UpdateManager:
             item.update(dt)
 
 class Renderer: 
-    def __init__(self, display_output: DisplayController, target_fps: int = 60, fixed_hz: int = 30):
+    def __init__(self, display_output: DisplayController, target_fps: int = 60, fixed_hz: int = 60):
         
         self.target_fps = target_fps
         if not isinstance(display_output, DisplayController):
