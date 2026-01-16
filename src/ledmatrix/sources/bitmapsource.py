@@ -3,16 +3,16 @@ from typing import Tuple, Optional
 from ledmatrix.types.frame import Frame
 
 class BitmapSource():
-    def __init__(self, width: int, height: int, offset: Tuple[int, int] = (0,0), opacity: float = 1.0, alpha: Optional[np.ndarray] = None):
+    def __init__(self, width: int, height: int, offset: Tuple[int, int] = (0,0), opacity: float = 1.0,):
         if width is None or height is None:
             raise ValueError("Bitmap Buffer Dimensions Must be Provided")
         self.width = width
         self.height = height
         self.offset = offset
         self.buffer = None
-        self.alpha = alpha
+        self.alpha = None
         self.opacity = float(np.clip(opacity, 0.0, 1.0))
-        self.dirty = False
+        self._dirty = False
         self._version = 1
           
     def upload(self, data: np.ndarray):
@@ -21,7 +21,6 @@ class BitmapSource():
         
         self._validate_buffer(data)
         rgb, alpha = self._normalize_to_rgb_a(data)
-        print("incoming:", rgb.shape, rgb.dtype, "buffer:", self.buffer.shape, self.buffer.dtype)
         if alpha is not None:
             self._validate_alpha(alpha, rgb)
 
@@ -101,9 +100,12 @@ class BitmapSource():
     
     def _validate_alpha(self, alpha_arr: np.ndarray, rgb_arr: np.ndarray):
         assert alpha_arr.ndim == 2, f"Alpha must be 2D (H,W), got shape {self.alpha.shape}"
-        assert alpha_arr.shape[0] == rgb_arr[0], "Alpha height must match RGB height"
-        assert alpha_arr.shape[1] == rgb_arr[1], "Alpha width must match RGB height"
-        assert alpha_arr.dype == np.float32, f"Alpha dtype must be float32, got {alpha_arr.dtype}"
+        assert alpha_arr.shape[0] == rgb_arr.shape[0], "Alpha height must match RGB height"
+        assert alpha_arr.shape[1] == rgb_arr.shape[1], "Alpha width must match RGB height"
+        assert alpha_arr.dtype == np.float32, f"Alpha dtype must be float32, got {alpha_arr.dtype}"
+
+    def set_offset(self, x: int, y: int):
+        self.offset = (x,y)
         
 
 
