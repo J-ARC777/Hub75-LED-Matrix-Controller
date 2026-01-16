@@ -42,9 +42,9 @@ class MotionController:
         if self._bounds and self._mode != "none":
             self._resolve_bounds()
         if hasattr(self.target, "set_offset"):
-            self.target.set_offset(self._x, self._y)
+            self.target.set_offset(int(round(self._x)), int(round(self._y)))
         else:
-            self.target.offset = (self._x, self._y)
+            self.target.offset = (int(round(self._x)), int(round(self._y)))
 
     def _resolve_bounds(self) -> None:
         b = self.bounds

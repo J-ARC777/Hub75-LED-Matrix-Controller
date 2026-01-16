@@ -3,6 +3,7 @@ from typing import Optional, Callable, List, Protocol
 
 from ledmatrix.compositor import Compositor
 from ledmatrix.displaycontroller import DisplayController
+from ledmatrix.sources.bitmapsource import BitmapSource
 
 class Updatable(Protocol):
     def update(self, dt:float) -> None: ...
@@ -40,6 +41,9 @@ class Renderer:
     def register_updatable(self, item: Updatable):
         self.update_manager.add(item)
 
+    def add_source(self, source: BitmapSource):
+        self.compositor.add_layer(source)
+        
     def start(self):
         self._active = True
         self._render()
